@@ -3,7 +3,9 @@ const app = express()
 const morgan = require('morgan')
 
 app.use(express.json())
-app.use(morgan('tiny'))
+morgan.token('type', () => "")
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :type'))
 
 let persons = [
     {
@@ -82,6 +84,7 @@ app.post('/api/persons', (request, response) => {
             error: "Name must be unique"
         })
     }
+    morgan.token('type', (req,res) => JSON.stringify(req.body))
 
     const person = {
       name: body.name,
