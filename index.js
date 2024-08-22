@@ -3,8 +3,9 @@ const app = express()
 const morgan = require('morgan')
 
 app.use(express.json())
-morgan.token('type', () => "")
+app.use(express.static('dist'))
 
+morgan.token('type', () => "")
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :type'))
 
 let persons = [
